@@ -33,6 +33,7 @@ import {
   IconDownload,
   IconPhotoSearch,
   IconViewportShort,
+  IconMapRoute,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import type {
@@ -204,6 +205,12 @@ export function ToolbarSettingsModal({
       icon: <IconViewportShort size={16} />,
       handler: () => {
         console.log("Opening Compress tool");
+      },
+    },
+    showMagicLayoutsMapper: {
+      icon: <IconMapRoute size={16} />,
+      handler: () => {
+        console.log("Opening Magic Layouts Mapper Modal");
       },
     },
   };
@@ -692,6 +699,24 @@ export function ToolbarSettingsModal({
                 </Group>
                 <Text size="xs" c="dimmed" ml={32}>
                   Compress and optimize document assets
+                </Text>
+
+                <Group justify="space-between" align="center">
+                  <Group gap="xs" style={{ flex: 1 }}>
+                    {getToolActionIcon("showMagicLayoutsMapper")}
+                    <Text>Magic Layouts Mapper</Text>
+                    {getStatusIcon("showMagicLayoutsMapper")}
+                  </Group>
+                  <Switch
+                    checked={config.showMagicLayoutsMapper}
+                    onChange={(event) =>
+                      handleToggle("showMagicLayoutsMapper", event.currentTarget.checked)
+                    }
+                    aria-label="Toggle Magic Layouts Mapper"
+                  />
+                </Group>
+                <Text size="xs" c="dimmed" ml={32}>
+                  Map your magic layouts to specific layouts/POI's
                 </Text>
               </Stack>
             </ScrollArea.Autosize>

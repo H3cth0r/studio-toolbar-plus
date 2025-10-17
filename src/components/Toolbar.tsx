@@ -27,6 +27,7 @@ import {
   IconDownload,
   IconPhotoSearch,
   IconViewportShort,
+  IconMapRoute,
 } from "@tabler/icons-react";
 import { appStore } from "../modalStore";
 import { FrameSnapshotLayoutModal } from "./FrameSnapshotLayout/FrameSnapshotLayoutModal";
@@ -38,6 +39,7 @@ import { ConnectorCleanupModal } from "./ConnectorCleanupModal";
 import { ManualCropManagerModal } from "./ManualCropManager/ManualCropManagerModal";
 import { OutTemplateModal } from "./OutTemplateModal";
 import { CompressModal } from "./CompressModal";
+import { MagicLayoutsMapperModal } from "./MagicLayoutsMapperModal";
 import { ToolbarSettingsModal } from "./ToolbarSettingsModal";
 import { AspectLockConfirmModal } from "./AspectLockConfirmModal";
 import type { AppConfig, AppInfo } from "../utils/appConfig";
@@ -65,6 +67,7 @@ export function Toolbar() {
     useState(false);
   const [isOutTemplateModalOpen, setIsOutTemplateModalOpen] = useState(false);
   const [isCompressModalOpen, setIsCompressModalOpen] = useState(false);
+  const [isMagicLayoutsMapperOpen, setMagicLayoutsMapperModalOpen] = useState(false);
   const [isAspectLockConfirmModalOpen, setIsAspectLockConfirmModalOpen] =
     useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
@@ -261,6 +264,11 @@ export function Toolbar() {
   const handleCompress = () => {
     setVisible(false);
     setIsCompressModalOpen(true);
+  };
+
+  const handleMagicLayoutsMapper = () => {
+    setVisible(false);
+    setMagicLayoutsMapperModalOpen(true);
   };
 
   const handleAspectLock = () => {
@@ -477,6 +485,19 @@ export function Toolbar() {
                     </ActionIcon>
                   </Tooltip>
                 )}
+                {appConfig.showMagicLayoutsMapper && (
+                  <Tooltip label="Magic Layouts Mapper" position="bottom" withArrow>
+                    <ActionIcon
+                      variant="filled"
+                      color={getActionIconColor("showMagicLayoutsMapper")}
+                      size="lg"
+                      aria-label="Magic Layouts Mapper"
+                      onClick={handleMagicLayoutsMapper}
+                    >
+                      <IconMapRoute size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                )}
                 {appConfig.showConnectorFolderBrowser && (
                   <Tooltip label="Image Browser" position="bottom" withArrow>
                     <ActionIcon
@@ -602,6 +623,14 @@ export function Toolbar() {
         <CompressModal
           opened={isCompressModalOpen}
           onClose={() => setIsCompressModalOpen(false)}
+        />
+      )}
+
+      {/* Show Magic Layouts Mapper Modal */}
+      {appConfig?.showMagicLayoutsMapper && (
+        <MagicLayoutsMapperModal
+          opened={isMagicLayoutsMapperOpen}
+          onClose={() => setMagicLayoutsMapperModalOpen(false)}
         />
       )}
 
